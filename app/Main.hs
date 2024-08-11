@@ -21,7 +21,7 @@ run s = do
 runSudoku :: Sudoku -> Either String Sudoku
 runSudoku input = maybeToEither err (solve input)
   where
-    err = "Provided sudoku has no solution!\n" ++ displaySudoku input
+    err = "Provided sudoku layout has no solution!\n" ++ displaySudoku input
 
 parseSudoku :: String -> Either String Sudoku
 parseSudoku s
@@ -30,7 +30,7 @@ parseSudoku s
   where
     parsedTiles = parseTiles s
     sudoku = Sudoku $ chunksOf 9 (parsedTiles ++ replicate (81 - length parsedTiles) Nothing)
-    errorMessage = "Provided sudoku is not valid!" ++ "\n" ++ displaySudoku sudoku
+    errorMessage = "Provided sudoku layout is not valid!" ++ "\n" ++ displaySudoku sudoku
 
 parseTiles :: String -> [Maybe Int]
 parseTiles s = readMaybe <$> words s

@@ -52,7 +52,10 @@ isBlockSolvable block = length list == length (fromList list)
     list = catMaybes block
 
 isValid :: Sudoku -> Bool
-isValid (Sudoku s) = length s == 9 && all (\x -> length x == 9) s
+isValid (Sudoku s) = length s == 9 && all (\x -> length x == 9) s && all (all isValidSudokuTile) s
+  where
+    isValidSudokuTile Nothing = True
+    isValidSudokuTile (Just x) = x > 0 && x < 10
 
 getBlocks :: Sudoku -> [Block]
 getBlocks (Sudoku s) = rows ++ columns ++ squares
